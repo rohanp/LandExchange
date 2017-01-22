@@ -1,0 +1,63 @@
+{% extends "home.html" %}
+
+{% block welcome %} {{user}} {% endblock %}
+
+{% block main %}
+
+<div class="row">
+  <div class="offset-by-three five columns"><center> <h4> {{name}} <h4> </center> </div>
+
+    <form method="POST">
+
+      <div class="one columns">
+        <input class="u-full-width" style="margin-top:7px;border:none; border-radius:2px;outline:None;padding:5px" placeholder="6" id="n_shares" name="n_shares">
+      </div>
+
+      <div class="two columns">
+        <input type="submit" value="Invest">
+      </div>
+    </form>
+</div>
+
+<div class="row">
+  <table>
+    <thead>
+      <tr>
+        <th>Total Shares</th>
+        <th>Price per Share</th>
+        <th>Change (24h)</th>
+        <th>Volatility</th>
+        <th>Average Price in Last 30 days</th>
+        <th>Location</th>
+      </tr>
+    </thead>
+
+    <tr>
+      <td>{{ property.total_shares }}</td>
+      <td>{{ property.price }}</td>
+      {% if property.change > 0 %}
+        <td>+{{ property.change }}</td>
+      {% else %}
+        <td>{{ property.change }}</td>
+      {% endif %}
+      <td> {{ property.volatility }} </td>
+      <td> {{ property.avg }} </td>
+      <td> <a href="https://www.google.com/maps/@{{property.location}},15z">Map</a> </td>
+    </tr>
+
+  </table>
+</div>
+
+<div class="row">
+
+  <div id="graphContainer" style="height: 300px"></div>
+  <div id="drag"></div>
+  <div id="drop"></div>
+
+  <script src="{{ url_for('static', filename='jquery-3.1.1.min.js') }}"> </script>
+  <script src="{{ url_for('static', filename='highcharts.js') }}"></script>
+  <script src="{{ url_for('static', filename='draggable-points.js') }}"></script>
+  <script src="{{ url_for('static', filename='graph.js') }}"> </script>
+</div>
+
+{% endblock %}

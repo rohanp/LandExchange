@@ -5,6 +5,8 @@
 <link href="{{ url_for('static', filename='font-awesome.min.css') }}" rel="stylesheet">
 <link href="{{ url_for('static', filename='font.css') }}" rel='stylesheet'>
 <link href="{{ url_for('static', filename='home.css') }}" rel='stylesheet'>
+<script src="{{ url_for('static', filename='sweetalert.min.js') }}"></script>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='sweetalert.css') }}">
 
 <div class="container">
 
@@ -13,12 +15,23 @@
     <div class="three columns"> <h4 style="margin-top:-6px"> land exchange </h4> </div>
     <div class="offset-by-one four columns">
         <form>
-          <input class="u-full-width" style="height:30px" placeholder="your search" id="query" name="query">
+          <input class="u-full-width" style="border:none; border-radius:2px;outline:None;padding:10px" placeholder="your search" id="query" name="query">
         </form>
     </div>
-    <div class="offset-by-two two columns"> welcome, {{ username }}</div>
+    <div style="margin-top:-6px; float:right" class="offset-by-two two columns">
+      welcome, {%block welcome %}{{ username }}{% endblock %}
+      <a href="{{ url_for('logout') }}" style="text-decoration: none;"> logout? </a>
+    </div>
+
   </div>
 
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <script> sweetAlert("Oops...", "Insufficient Funds", "error"); </script>
+  {% endif %}
+  {% endwith %}
+
+  {% block main %}
   <div class="row">
     <div class="five columns">
       <center> <h5> your portfolio </h5> </center>
@@ -33,20 +46,21 @@
         </thead>
 
         <tbody>
+          {%block portfolio %}
           {% for property in my_properties %}
-            <tr>
-              <td>{{ property.name }}</td>
-              <td>{{ property.n_shares }}</td>
-              <td>{{ property.price }}</td>
+              <tr onclick="window.document.location='/{{property.name}}'">
+                <td>{{ property.name }}</td>
+                <td>{{ property.n_shares }}</td>
+                <td>{{ property.price }}</td>
 
-              {% if property.change > 0 %}
-                <td>+{{ property.change }}</td>
-              {% else %}
-                <td>{{ property.change }}</td>
-              {% endif %}
-
-            </tr>
+                {% if property.change > 0 %}
+                  <td>+{{ property.change }}</td>
+                {% else %}
+                  <td>{{ property.change }}</td>
+                {% endif %}
+              </tr>
           {% endfor %}
+          {% endblock %}
         </tbody>
       </table>
     </div>
@@ -65,16 +79,17 @@
       </thead>
 
       <tbody>
-        <tr>
-          <td>cocky_sammet</td>
-          <td>30.53</td>
-          <td>+6.9</td>
-        </tr>
+          <tr onclick="window.document.location='/cocky_sammet'">
+            <td>cocky_sammet</td>
+            <td>30.53</td>
+            <td>+6.9</td>
+          </tr>
       </tbody>
     </table>
     {% endblock %}
 
     </div>
   </div>
+  {% endblock %}
 
 </div>
