@@ -16,9 +16,10 @@
           <input class="u-full-width" style="height:30px" placeholder="your search" id="query" name="query">
         </form>
     </div>
-    <div class="offset-by-two two columns"> welcome, {{ username }}</div>
+    <div class="offset-by-two two columns"> welcome, {%block welcome %}{{ username }}{% endblock %}</div>
   </div>
 
+  {% block main %}
   <div class="row">
     <div class="five columns">
       <center> <h5> your portfolio </h5> </center>
@@ -33,20 +34,23 @@
         </thead>
 
         <tbody>
+          {%block portfolio %}
           {% for property in my_properties %}
-            <tr>
-              <td>{{ property.name }}</td>
-              <td>{{ property.n_shares }}</td>
-              <td>{{ property.price }}</td>
+            <a href="/home/{{property.name}}">
+              <tr>
+                <td>{{ property.name }}</td>
+                <td>{{ property.n_shares }}</td>
+                <td>{{ property.price }}</td>
 
-              {% if property.change > 0 %}
-                <td>+{{ property.change }}</td>
-              {% else %}
-                <td>{{ property.change }}</td>
-              {% endif %}
-
-            </tr>
+                {% if property.change > 0 %}
+                  <td>+{{ property.change }}</td>
+                {% else %}
+                  <td>{{ property.change }}</td>
+                {% endif %}
+              </tr>
+            </a>
           {% endfor %}
+          {% endblock %}
         </tbody>
       </table>
     </div>
@@ -76,5 +80,6 @@
 
     </div>
   </div>
+  {% endblock %}
 
 </div>

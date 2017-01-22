@@ -91,23 +91,27 @@ def register():
 @nocache
 def home():
     user = flask_login.current_user.id
+    query = flask.request.args.get('query')
+    my_properties = []
 
-    if flask.request.args.get('query'):
+    for prop_name, n_shares in users[user]["properties"]:
+        prop = properties[prop_name]
+        my_properties.append(
+        {
+            'name':prop_name,
+            'n_shares':n_shares,
+            'price':prop['price'],
+            'change':prop['change']
+        })
+
+    if query:
         properties_ = properties.values()
-        return flask.render_template("search.html", properties=properties_)
+        return flask.render_template("search.html", properties=properties_,
+                                                    username=user,
+                                                    my_properties=my_properties,
+                                                    query=query
+                                                    )
     else:
-        my_properties = []
-
-        for prop_name, n_shares in users[user]["properties"]:
-            prop = properties[prop_name]
-            my_properties.append(
-            {
-                'name':prop_name,
-                'n_shares':n_shares,
-                'price':prop['price'],
-                'change':prop['change']
-            })
-
         return flask.render_template("home.html", username=user,
                                                   my_properties=my_properties
                                                   )
