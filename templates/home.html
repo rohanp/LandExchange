@@ -1,0 +1,26 @@
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<link href="{{ url_for('static', filename='normalize.css') }}" rel='stylesheet'>
+<link href="{{ url_for('static', filename='skeleton.css') }}" rel='stylesheet'>
+<link href="{{ url_for('static', filename='font-awesome.min.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='font.css') }}" rel='stylesheet'>
+
+<div class="container">
+
+  <!-- columns should be the immediate child of a .row -->
+  <div class="row" style="margin-top:50px">
+    <div class="ten columns"></div>
+    <div class="two columns">welcome, {{ username }}</div>
+  </div>
+
+  <div class="row">
+    <div class="three columns">Your Property Shares</div>
+    <div class="two columns">Top Property Shares</div>
+  </div>
+
+  <div class="row">
+    <div class="nine columns"></div>
+    <div class="three columns">Bottom Property Shares</div>
+  </div>
+
+</div>
