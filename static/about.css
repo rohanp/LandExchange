@@ -1,0 +1,79 @@
+.background-image { 
+   position: relative; 
+   width: 100%; /* for IE 6 */
+}
+
+.second-section {
+	border-left: solid #aaaaaa;
+	padding-left: 30px;
+	padding-right: 15px;
+}
+
+.scroll-nav {
+	position: fixed;
+	height: 100%;
+	right: 15px;
+	z-index:9999;
+}
+
+.background-image img {
+	width: 100%;
+  -webkit-filter: blur(3px);
+  -moz-filter: blur(3px);
+  -o-filter: blur(3px);
+  -ms-filter: blur(3px);
+  filter: blur(3px);
+   opacity: 0.8;
+   filter: alpha(opacity=50); /* For IE8 and earlier */
+}
+
+.image-text { 
+   position: absolute; 
+   top: 15px; 
+   left: 15px; 
+   width: 100%; 
+}
+
+.section {
+	margin-right:15px; 
+	margin-left:15px;
+	min-height: 200px;
+	display: flex;
+	flex-wrap: nowrap;
+}
+.section .icon {
+	margin-right: 4%;
+}
+.section .icon img {
+	max-width: 256px;
+	max-height: 256px;
+}
+
+.section .farmer img {
+	max-width: 300px;
+	max-height: 300px;
+} 
+
+.section .world img {
+	min-width: 300px;
+	min-height: 300px;
+}
+
+.info {
+	margin-right: 5%;
+	margin-left: 3%;
+}
+ol {
+	list-style-type:none;
+}
+.scroll-nav__heading {
+	display: none;
+}
+.scroll-nav {
+	background-color: #eee;
+	opacity: .5;
+}
+ol a {
+	color: #000;
+	opacity: 1;
+}
