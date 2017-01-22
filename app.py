@@ -56,7 +56,7 @@ def unauthorized_handler():
 
 @app.route('/')
 def index():
-    return flask.render_template("index.html")
+    return flask.render_template("about.html")
 
 @app.route('/<property_name>', methods=['GET', 'POST'])
 @nocache

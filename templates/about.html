@@ -2,16 +2,22 @@
 <html>
   <head>
     <title>Land Exchange</title>
-    <link rel='stylesheet' href='../static/skeleton.css'>
-    <link rel='stylesheet' href='../static/about.css'>
+    <link rel='stylesheet' href="{{ url_for('static', filename='skeleton.css') }}">
+    <link rel='stylesheet' href="{{ url_for('static', filename='about.css') }}">
+    <link href="{{ url_for('static', filename='home.css') }}" rel='stylesheet'>
+    <link href="{{ url_for('static', filename='font-awesome.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='font.css') }}" rel='stylesheet'>
+
   </head>
   <body>
     <article class="post__article">
         <div class="background-image">
-          <img src="../images/ProblemImg.jpg">
+          <a href="{{ url_for('login') }}">
+            <img src="{{ url_for('static', filename='ProblemImg.jpg') }}">
+          </a>
           <div class="image-text">
             <header class"post__header">
-                <h1 class="post__heading">Land Exchange</h1>
+                <center><h1 class="post__heading" style="margin-top:80px;">Land Exchange</h1></center>
             </header>
           </div>
         </div>
@@ -58,12 +64,12 @@
             </ul>
           </div>
           <div class="three column images">
-            <img src="../images/SquoImg1.jpg">
-            <img src="../images/SquoImg2.jpg">
+            <img src="{{ url_for('static', filename='SquoImg1.jpg') }}">
+            <img src="{{ url_for('static', filename='SquoImg2.jpg') }}">
           </div>
           <div class="three column images">
-            <img src="../images/SquoImg3.jpg">
-            <img src="../images/SquoImg4.jpg">
+            <img src="{{ url_for('static', filename='SquoImg3.jpg') }}">
+            <img src="{{ url_for('static', filename='SquoImg4.jpg') }}">
           </div>
         </div>
         <h2>Solution</h2>
@@ -72,15 +78,15 @@
         </div>
         <div class='section'>
           <div class="icon four column">
-            <img src="../images/BankIcon.jpg">
+            <img src="{{ url_for('static', filename='BankIcon.jpg') }}">
             <p>A bank determines the valuation of the land and number of shares issued in our exchange</p>
           </div>
           <div class="icon four column">
-            <img src="../images/ExchangeIcon.png">
+            <img src="{{ url_for('static', filename='ExchangeIcon.png') }}">
             <p>We take those shares and begin an auction for investors on our platform. Market makers continue to price the shares of land based on the ask/bid spread</p>
           </div>
           <div class="icon four column">
-            <img src="../images/ComputerIcon.png">
+            <img src="{{ url_for('static', filename='ComputerIcon.png') }}">
             <p>All price setting and trading will be done through the online platform, public to all investors</p>
           </div>
         </div>
@@ -118,17 +124,17 @@
                 <ul>
                   <li>Land Exchange creates a cheaper and lower risk commodity that can be used as a low-capital investment</li>
                 </ul>
-              </li>              
+              </li>
             </ul>
           </div>
           <div class="six column farmer">
-            <img src="../images/FarmerIcon.png">
+            <img src="{{ url_for('static', filename='FarmerIcon.png') }}">
           </div>
         </div>
         <h2>Growth</h2>
         <div class="section">
           <div class="six column world">
-            <img src="../images/WorldIcon.png">
+            <img src="{{ url_for('static', filename='WorldIcon.png') }}">
           </div>
           <div class="text six column">
             <p>There are more than 570 million farms in the world. More than 90% of farms are run by an individual or a family. Family farms occupy a large share of the world's agricultural land and produce about 80% of the world's food.</p>
@@ -139,8 +145,8 @@
     </article>
   </body>
 </html>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-<script src="../static/jquery.scrollNav.min.js"></script>
+<script src="{{ url_for('static', filename='jquery-3.1.1.min.js') }}"></script>
+<script src="{{ url_for('static', filename='jquery.scrollNav.min.js') }}"></script>
 <script>
   $('.post__article').scrollNav();
 </script>
