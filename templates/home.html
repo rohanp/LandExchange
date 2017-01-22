@@ -4,23 +4,77 @@
 <link href="{{ url_for('static', filename='skeleton.css') }}" rel='stylesheet'>
 <link href="{{ url_for('static', filename='font-awesome.min.css') }}" rel="stylesheet">
 <link href="{{ url_for('static', filename='font.css') }}" rel='stylesheet'>
+<link href="{{ url_for('static', filename='home.css') }}" rel='stylesheet'>
 
 <div class="container">
 
   <!-- columns should be the immediate child of a .row -->
-  <div class="row" style="margin-top:50px">
-    <div class="ten columns"></div>
-    <div class="two columns">welcome, {{ username }}</div>
+  <div class="row">
+    <div class="three columns"> <h4 style="margin-top:-6px"> land exchange </h4> </div>
+    <div class="offset-by-one four columns">
+        <form>
+          <input class="u-full-width" style="height:30px" placeholder="your search" id="query" name="query">
+        </form>
+    </div>
+    <div class="offset-by-two two columns"> welcome, {{ username }}</div>
   </div>
 
   <div class="row">
-    <div class="three columns">Your Property Shares</div>
-    <div class="two columns">Top Property Shares</div>
-  </div>
+    <div class="five columns">
+      <center> <h5> your portfolio </h5> </center>
+        <table class="u-full-width">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Shares</th>
+            <th>Price</th>
+            <th>Change</th>
+          </tr>
+        </thead>
 
-  <div class="row">
-    <div class="nine columns"></div>
-    <div class="three columns">Bottom Property Shares</div>
+        <tbody>
+          {% for property in my_properties %}
+            <tr>
+              <td>{{ property.name }}</td>
+              <td>{{ property.n_shares }}</td>
+              <td>{{ property.price }}</td>
+
+              {% if property.change > 0 %}
+                <td>+{{ property.change }}</td>
+              {% else %}
+                <td>{{ property.change }}</td>
+              {% endif %}
+
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="offset-by-two five columns">
+
+      {% block rightHalf %}
+      <center> <h5> trending properties </h5> </center>
+
+      <table class="u-full-width">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Change</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td>cocky_sammet</td>
+          <td>30.53</td>
+          <td>+6.9</td>
+        </tr>
+      </tbody>
+    </table>
+    {% endblock %}
+
+    </div>
   </div>
 
 </div>

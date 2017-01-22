@@ -1,13 +1,27 @@
 import flask
 import flask_login
-
-users = {'rohanp': {'pw': 'secret'}}
+from flask import make_response
+from functools import wraps, update_wrapper
+from datetime import datetime
+from db import users, properties
 
 app = flask.Flask(__name__)
 app.secret_key = 'notsecretstring'
 
 login_manager = flask_login.LoginManager()
 login_manager.init_app(app)
+
+def nocache(view):
+    @wraps(view)
+    def no_cache(*args, **kwargs):
+        response = make_response(view(*args, **kwargs))
+        response.headers['Last-Modified'] = datetime.now()
+        response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0, max-age=0'
+        response.headers['Pragma'] = 'no-cache'
+        response.headers['Expires'] = '-1'
+        return response
+
+    return update_wrapper(no_cache, view)
 
 class User(flask_login.UserMixin):
     pass
@@ -74,14 +88,31 @@ def register():
 
 @app.route('/home')
 @flask_login.login_required
+@nocache
 def home():
-    return flask.render_template("home.html", username=flask_login.current_user.id)
+    user = flask_login.current_user.id
 
+    my_properties = []
+
+    for prop_name, n_shares in users[user]["properties"]:
+        prop = properties[prop_name]
+        my_properties.append(
+        {
+            'name':prop_name,
+            'n_shares':n_shares,
+            'price':prop['price'],
+            'change':prop['change']
+        })
+
+    return flask.render_template("home.html", username=user,
+                                              my_properties=my_properties
+                                              )
 
 @app.route('/logout')
 def logout():
     flask_login.logout_user()
     return 'Logged out'
+
 
 if __name__ == "__main__":
     app.run(port=5000, debug=True)
