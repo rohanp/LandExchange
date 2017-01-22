@@ -1,0 +1,19 @@
+.container:first-child{
+  margin-top:50px;
+}
+
+table{
+  margin-right: 20px;
+}
+
+body {
+  background: #efefef;
+}
+
+input:focus{
+  border-color: #000000;
+}
+
+a{
+  text-decoration: none;
+}

@@ -58,6 +58,28 @@ def unauthorized_handler():
 def index():
     return flask.render_template("index.html")
 
+@app.route('/<property_name>', methods=['GET', 'POST'])
+@nocache
+def property_info(property_name):
+    user = flask_login.current_user.id
+
+    if flask.request.method == 'POST':
+        n = int(flask.request.form['n_shares'])
+
+        if n >= 100:
+            flask.flash("Insufficient Funds")
+        else:
+            if property_name in users[user]['properties']:
+                users[user]['properties'][property_name] += n
+            else:
+                users[user]['properties'][property_name] = n
+
+            return flask.redirect(flask.url_for('home'))
+
+    return flask.render_template("property_info.html", name=property_name,
+                                                       user=user,
+                                                       property=properties[property_name])
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if flask.request.method == 'GET':
@@ -94,7 +116,7 @@ def home():
     query = flask.request.args.get('query')
     my_properties = []
 
-    for prop_name, n_shares in users[user]["properties"]:
+    for prop_name, n_shares in users[user]["properties"].items():
         prop = properties[prop_name]
         my_properties.append(
         {
@@ -119,7 +141,7 @@ def home():
 @app.route('/logout')
 def logout():
     flask_login.logout_user()
-    return 'Logged out'
+    return flask.redirect('/')
 
 
 if __name__ == "__main__":

@@ -1,0 +1,51 @@
+{% extends "home.html" %}
+
+{% block welcome %}
+  {{ username }}
+{% endblock %}
+
+{%block portfolio %}
+{% for property in my_properties %}
+  <tr onclick="window.document.location='/{{property.name}}'">
+    <td>{{ property.name }}</td>
+    <td>{{ property.n_shares }}</td>
+    <td>{{ property.price }}</td>
+
+    {% if property.change > 0 %}
+      <td>+{{ property.change }}</td>
+    {% else %}
+      <td>{{ property.change }}</td>
+    {% endif %}
+  </tr>
+{% endfor %}
+{% endblock %}
+
+{% block rightHalf %}
+<center> <h5> Search for "{{query}}" </h5> </center>
+  <table class="u-full-width">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Shares</th>
+      <th>Price</th>
+      <th>Change</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {% for property in properties %}
+        <tr onclick="window.document.location='/{{property.name}}'">
+          <td>{{ property.name }}</td>
+          <td>{{ property.n_shares }}</td>
+          <td>{{ property.price }}</td>
+
+          {% if property.change > 0 %}
+            <td>+{{ property.change }}</td>
+          {% else %}
+            <td>{{ property.change }}</td>
+          {% endif %}
+        </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
